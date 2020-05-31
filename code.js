@@ -15,6 +15,7 @@ $(document).ready(function() {
     var lockAns = false;
     var lockNav = false;
     var initials = "";
+    var entry = "";
     // content rows
     var headingRow = $('#heading_row');
     var contentRow = $('#content_row');
@@ -36,7 +37,7 @@ $(document).ready(function() {
     // View Scores
     function viewScores () {
         if (!lockNav) {
-            alert("Score!");
+            showScores();
         }
     }
 
@@ -118,7 +119,8 @@ $(document).ready(function() {
     }
 
     // show scores
-    showScores() {
+    function showScores() {
+        clearContent();
         alert("initials value: "+ initials + " score value: " + score);
     }
 
@@ -145,6 +147,8 @@ $(document).ready(function() {
             } else {
                 initials = "Mysterious Stranger";
             }
+            entry = ("0000"+score).substr(-4,4) + " - " + initials;
+            alert(entry);
             // show scores
             showScores();
         });
