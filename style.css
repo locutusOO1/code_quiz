@@ -12,6 +12,10 @@ button {
     max-width: 80%;
 }
 
+#heading_row,#content_row,#button_row,#result_row{
+    width: 100%;
+}
+
 .result {
     min-width: 200px;
     border-top: solid 1px #cccccc;
@@ -24,4 +28,8 @@ button {
 
 .wrong {
     color: red;
+}
+
+#sub_init {
+    margin-left: 5px;
 }
