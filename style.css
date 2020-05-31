@@ -1,2 +1,27 @@
 /* margin: auto */
 /* text-align: center */
+
+button {
+    margin-bottom: 1px;
+    min-width: 150px;
+}
+
+#main_container {
+    margin-left: 10%;
+    margin-right: 10%;
+    max-width: 80%;
+}
+
+.result {
+    min-width: 200px;
+    border-top: solid 1px #cccccc;
+    font-style: italic;
+}
+
+.right {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
