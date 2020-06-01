@@ -6,11 +6,27 @@ $(document).ready(function() {
     var interval;
     var timeLeft = $('#time');
     // quiz questions
-    var questions = [["What is \"1\" + 1?",4,"5","2","\"11\"","\"1\""],
+    var questions = [["What is \"1\" + 1 in JavaScript?",4,"5","2","\"11\"","\"1\""],
                      ["What is the increment operator?",3,"-","++","+","%"],
-                     ["What is the decrement operator?",2,"--","-","/","^"],
                      ["True/False: \"===\" always produces the same results as \"==\"",3,"True","False"],
-                     ["True/False: JavaScript allows you to create anonymous functions (functions without a name)",2,"True","False"]];
+                     ["What is the decrement operator?",2,"--","-","/","^"],
+                     ["True/False: The \"==\" operator allows you assign values to variables",3,"True","False"],
+                     ["What is the division operator?",4,"+","-","/","^"],
+                     ["The ___ operator checks for equal value and equal type",2,"===","!=","?","="],
+                     ["True/False: x -= y produces the same result as x = x - y",2,"True","False"],
+                     ["_____ selects an element with an ID of main_header",2,"$('#main_header')","$('.main_header')","$('IDmain_header')","$('main_header')"],
+                     ["True/False: x += y produces the same result as x = x * y",3,"True","False"],
+                     ["The ___ operator is the LOGICAL AND operator",3,"===","&&","?","||"],
+                     ["True/False: 1 != 1 is true",3,"True","False"],
+                     ["True/False: order of operations matter in JavaScript",2,"True","False"],
+                     ["The ___ operator is the LOGICAL OR operator",5,"===","&&","?","||"],
+                     ["_____ creates an empty array",2,"var arrayName = [];","var arrayName = [1,2];","arrayName var [];","[arrayName]"],
+                     ["True/False: the length property of an array holds the number of elements in the array",2,"True","False"],
+                     ["_____ is an example of camel case",5,"main_header","mainheader","Mainheader","mainHeader"],
+                     ["True/False: JavaScript allows you to create anonymous functions (functions without a name)",2,"True","False"],
+                     ["What is the multiplication operator?",2,"*","-","/","^"],
+                     ["True/False: The \"+\" operator allows you to concatenate (join) two strings",2,"True","False"],
+                     ["What is the modulus operator?",5,"--","-","/","%"]];
     var quesIndex = -1;
     var result = "";
     var resClass = ""
@@ -32,6 +48,7 @@ $(document).ready(function() {
         newEl.appendTo(contentRow);
         newEl = $('<button id="begin" type="button" class="btn btn-primary mx-auto">Begin Quiz</button>');
         newEl.appendTo(buttonRow);
+        // begin button action listener
         $('#begin').on("click",startGame);
     }
 
@@ -80,6 +97,7 @@ $(document).ready(function() {
         newEl = $('<button id="clear" type="button" class="btn btn-primary">Clear Scores</button>');
         newEl.appendTo(newDiv);
         newDiv.appendTo(buttonRow);
+        // restart and clear button action listeners
         $('#restart').on("click",function(){
             location.reload();
         });
@@ -175,12 +193,11 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    // end game when timer reaches 0
+    // end game when timer reaches 0 or when there are no more questions
     function gameOver() {
         lockNav = false;
         clearInterval(interval);
         clearContent();
-        // alert("Game Over!!!\nScore: "+score);
         var newEl = $('<h3 id="main_header" class="mx-auto">Game Over!!!</h3>');
         newEl.appendTo(headingRow);
         newEl = $('<h6 id="summary" class="mx-auto">Your final score is: ' + score + '</h6>');
@@ -199,7 +216,6 @@ $(document).ready(function() {
                 initials = "Mysterious Stranger";
             }
             entry = ("0000"+score).substr(-4,4) + " - " + initials;
-            alert(entry);
             // show scores
             showScores();
         });
