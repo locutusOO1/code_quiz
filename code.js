@@ -2,12 +2,14 @@ $(document).ready(function() {
     // global variables
     var totalSeconds = 100;
     var score = 0;
+    var scores = [];
     var interval;
     var timeLeft = $('#time');
+    // quiz questions
     var questions = [["What is \"1\" + 1?",4,"5","2","\"11\"","\"1\""],
-                    //  ["What is the increment operator?",3,"-","++","+","%"],
-                    //  ["What is the decrement operator?",2,"--","-","/","^"],
-                    //  ["True/False: \"===\" always produces the same results as \"==\"",3,"True","False"],
+                     ["What is the increment operator?",3,"-","++","+","%"],
+                     ["What is the decrement operator?",2,"--","-","/","^"],
+                     ["True/False: \"===\" always produces the same results as \"==\"",3,"True","False"],
                      ["True/False: JavaScript allows you to create anonymous functions (functions without a name)",2,"True","False"]];
     var quesIndex = -1;
     var result = "";
@@ -22,6 +24,7 @@ $(document).ready(function() {
     var buttonRow = $('#button_row');
     var resultRow = $('#result_row');
 
+    // initialize game
     function initGame () {
         var newEl = $('<h3 id="main_header" class="mx-auto">Coding Quiz Challenge</h3>');
         newEl.appendTo(headingRow);
@@ -29,19 +32,73 @@ $(document).ready(function() {
         newEl.appendTo(contentRow);
         newEl = $('<button id="begin" type="button" class="btn btn-primary mx-auto">Begin Quiz</button>');
         newEl.appendTo(buttonRow);
-        // need action listener for begin button
-        var begBtn = $('#begin');
-        begBtn.on("click",startGame);
+        $('#begin').on("click",startGame);
     }
 
-    // View Scores
+    // get scores
+    function getScores () {
+        if (JSON.parse(localStorage.getItem("scores"))) {
+            scores = JSON.parse(localStorage.getItem("scores"));
+        }
+    }
+
+    // set scores
+    function setScores () {
+        getScores();
+        if (entry.length > 0) {
+            scores.push(entry);
+            scores = scores.sort().reverse();
+            localStorage.setItem("scores",JSON.stringify(scores));
+        }
+    }
+
+    // show scores
+    function showScores() {
+        clearContent();
+        setScores();
+        getScores();
+        $('#nav_container').css("visibility","hidden");
+        var newEl = $('<h3 id="main_header" class="mx-auto">High Scores</h3>')
+        newEl.appendTo(headingRow);
+        newEl = $('<ol class="mx-auto"></ol>');
+        if (scores.length <= 0) {
+            var newLi = $('<li><h6>No Scores Recorded</h6></li>');
+            newLi.appendTo(newEl);
+        } else {
+            for (var i = 0; i < scores.length; i++) {
+                var newLi = $('<li><h6>' + scores[i] + '</h6></li>');
+                if (scores[i] === entry) {
+                    newLi.addClass("recent");
+                }
+                newLi.appendTo(newEl);
+            }
+        }
+        newEl.appendTo(contentRow);
+        var newDiv = $('<div class="mx-auto"></div>');
+        newEl = $('<button id="restart" type="button" class="btn btn-primary">Restart Game</button>')
+        newEl.appendTo(newDiv);
+        newEl = $('<button id="clear" type="button" class="btn btn-primary">Clear Scores</button>');
+        newEl.appendTo(newDiv);
+        newDiv.appendTo(buttonRow);
+        $('#restart').on("click",function(){
+            location.reload();
+        });
+        $('#clear').on("click",function(){
+            scores = [];
+            entry = "";
+            localStorage.setItem("scores",JSON.stringify(scores));
+            showScores();
+        });
+    }
+
+    // view Scores
     function viewScores () {
         if (!lockNav) {
             showScores();
         }
     }
 
-    // Go to Next Question
+    // go to Next Question
     function nextQues () {
         clearContent();
         lockAns = false;
@@ -55,7 +112,7 @@ $(document).ready(function() {
                 option.appendTo(newEl);
             }
             newEl.appendTo(contentRow);
-            // Options action listener
+            // options action listener
             $('.options').on("click",function(event) {
                 if (event.target.value) {
                     if (!lockAns) {
@@ -118,12 +175,6 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    // show scores
-    function showScores() {
-        clearContent();
-        alert("initials value: "+ initials + " score value: " + score);
-    }
-
     // end game when timer reaches 0
     function gameOver() {
         lockNav = false;
@@ -154,10 +205,10 @@ $(document).ready(function() {
         });
     }
 
-    // Start Game
+    // start game
     initGame();
 
-    // Score link action listener
+    // score link action listener
     $('#high_link').on("click",viewScores);
 
 
