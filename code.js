@@ -116,7 +116,7 @@ $(document).ready(function() {
         }
     }
 
-    // go to Next Question
+    // go to next question
     function nextQues () {
         clearContent();
         lockAns = false;
@@ -151,6 +151,7 @@ $(document).ready(function() {
                         }
                         newEl = $('<h6 class="result mx-auto text-center '+ resClass +'">'+ result +'</h6>');
                         newEl.appendTo(resultRow);
+                        // timeout to advance next question
                         var timeOut = setTimeout(function() {
                             nextQues();
                         },1250);
