@@ -16,4 +16,4 @@ A code quiz created using dynamic HTML.
 * 2 dimensional array to store quiz questions
 
 ## Screenshot:
-![Screenshot of Code Quiz](screenshot.PNG)
+![Screenshot of Code Quiz](code_quiz.png)
