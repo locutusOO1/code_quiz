@@ -15,3 +15,5 @@ A code quiz created using dynamic HTML.
 * localStorage with JSON to store an array of scores
 * 2 dimensional array to store quiz questions
 
+## Screenshot:
+![Screenshot of Code Quiz](screenshot.PNG)
